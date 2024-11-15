@@ -356,13 +356,3 @@ div.right-sub {
   margin-left:550px;
   border-radius: 15px 0 ;
 }
-
-div#map {
-  margin-top: 50px;
-  margin-left: 50px;
-  width: 900px;
-  height: 700px;
-  position: relative;
-  overflow: hidden;
-  background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/bg_tile.png&quot;);
-}

@@ -9,9 +9,18 @@
         h1 {
             color: white;
         }
+        /* 지도 스타일 */
+        div.right-sub > div#map {
+            margin-top: 50px;
+            margin-left: 50px;
+            width: 900px;
+            height: 700px;
+            position: relative;
+            overflow: hidden;
+            background: url("https://t1.daumcdn.net/mapjsapi/images/bg_tile.png");
+        }
     </style>
-    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=fb23551b4674ffad9b9c3f879aada9a9"></script>
-
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_API_KEY"></script> <!-- YOUR_API_KEY 부분을 실제 API 키로 바꾸세요 -->
 </head>
 <body>
     <a href="./sub1page.html" class="logo" id="sub">Project Team 1</a>
@@ -52,14 +61,16 @@
     </div>
 
     <script>
-  var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-      mapOption = { 
-          center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표 (예: 서울 좌표)
-          level: 3 // 지도의 확대 레벨
-      };
+        // 지도를 표시할 div와 지도 옵션 설정
+        var mapContainer = document.getElementById('map'),
+            mapOption = { 
+                center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표
+                level: 3 // 확대 레벨
+            };
 
-  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-</script>
+        // 지도 생성
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+    </script>
 
 </body>
 
