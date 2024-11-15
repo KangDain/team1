@@ -13,13 +13,88 @@
         div.right-sub > div#map {
             margin-top: 50px;
             margin-left: 50px;
-            width: 900px;
+            width: 850px;
             height: 700px;
             position: relative;
             overflow: hidden;
             background: url("https://t1.daumcdn.net/mapjsapi/images/bg_tile.png");
         }
+        /* 스크롤 가능한 입력 필드 스타일 */
+        .input-container {
+            width: 300px;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .input-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .input-item {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 80px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .add-btn {
+            width: 100%;
+            padding: 5px;
+            margin-top: 10px;
+            background-color: #555;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
+    <script>
+        const maxItems = 5; // 최대 입력 항목 수
+
+        function addInput() {
+            const inputList = document.getElementById('inputList');
+            const currentItems = inputList.getElementsByClassName('input-item').length;
+
+            if (currentItems < maxItems) {
+                const newItem = document.createElement('div');
+                newItem.classList.add('input-item');
+                newItem.innerHTML = `
+                    <input type="text" placeholder="제목">
+                    <input type="text" placeholder="가수">
+                    <input type="text" placeholder="Youtube 링크를 입력해주세요">
+                    <button class="delete-btn" onclick="deleteInput(this)">🗑️</button>
+                `;
+                inputList.appendChild(newItem);
+            } else {
+                alert("최대 5개의 입력 필드를 추가할 수 있습니다.");
+            }
+        }
+
+        function deleteInput(button) {
+            const inputList = document.getElementById('inputList');
+            inputList.removeChild(button.parentElement);
+        }
+
+    </script>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_API_KEY"></script> <!-- YOUR_API_KEY 부분을 실제 API 키로 바꾸세요 -->
 </head>
 <body>
@@ -58,6 +133,38 @@
 
     <div class="right-sub">
         <div id="map"></div>
+
+        <!-- 새롭게 추가된 입력 폼 -->
+        <div class="input-container">
+            <h2>플레이리스트 제목</h2>
+            <div class="input-field">
+                <input type="text" placeholder="제목을 입력하세요">
+            </div>
+
+            <h2>이미지 업로드</h2>
+            <div class="input-field">
+                <input type="text" placeholder="파일을 업로드 해주세요">
+                <button>📁</button>
+            </div>
+
+            <h2>제목 / 가수 / Youtube 링크 입력</h2>
+            <div class="input-list" id="inputList">
+                <div class="input-item">
+                    <input type="text" placeholder="제목">
+                    <input type="text" placeholder="가수">
+                    <input type="text" placeholder="Youtube 링크를 입력해주세요">
+                    <button class="delete-btn" onclick="deleteInput(this)">🗑️</button>
+                </div>
+            </div>
+            <button class="add-btn" onclick="addInput()">+</button>
+
+            <h2>위치 선택</h2>
+            <div class="input-field">
+                <input type="text" placeholder="지도 위에 위치를 선택해주세요">
+            </div>
+
+            <button class="save-btn">위치 저장하기</button>
+        </div>
     </div>
 
     <script>
@@ -73,6 +180,4 @@
     </script>
 
 </body>
-
-    
 </html>
