@@ -72,31 +72,37 @@
         const maxItems = 5; // 최대 입력 항목 수
 
         function addInput() {
-            const inputList = document.getElementById('inputList');
-            const currentItems = inputList.getElementsByClassName('input-item').length;
+    const inputList = document.getElementById('inputList');
+    const currentItems = inputList.getElementsByClassName('input-item').length;
 
-            if (currentItems < maxItems) {
-                const newItem = document.createElement('div');
-                newItem.classList.add('input-item');
-                newItem.innerHTML = `
-                    <input type="text" placeholder="제목">
-                    <input type="text" placeholder="가수">
-                    <input type="text" placeholder="Youtube 링크를 입력해주세요">
-                    <button class="delete-btn" onclick="deleteInput(this)">🗑️</button>
-                `;
-                inputList.appendChild(newItem);
-            } else {
-                alert("최대 5개의 입력 필드를 추가할 수 있습니다.");
-            }
+        if (currentItems < maxItems) {
+            const uniqueId = `item-${Date.now()}`; // 고유 ID 생성
+            const newItem = document.createElement('div');
+            newItem.classList.add('input-item');
+            newItem.setAttribute('id', uniqueId);
+            newItem.innerHTML = `
+                <input type="text" placeholder="제목">
+                <input type="text" placeholder="가수">
+                <input type="text" placeholder="Youtube 링크를 입력해주세요">
+                <button class="delete-btn" onclick="deleteInput('${uniqueId}')">🗑️</button>
+            `;
+            inputList.appendChild(newItem);
+        } else {
+            alert("최대 5개의 입력 필드를 추가할 수 있습니다.");
         }
+    }
 
-        function deleteInput(button) {
-            const inputList = document.getElementById('inputList');
-            inputList.removeChild(button.parentElement);
+    function deleteInput(uniqueId) {
+        const item = document.getElementById(uniqueId);
+        if (item) {
+            item.parentElement.removeChild(item);
         }
+    }
+
 
     </script>
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=fb23551b4674ffad9b9c3f879aada9a9"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=fb23551b4674ffad9b9c3f879aada9a9&libraries=services"></script>
+
 
 </head>
 <body>
@@ -145,8 +151,9 @@
 
             <h2>이미지 업로드</h2>
             <div class="input-field">
-                <input type="text" placeholder="파일을 업로드 해주세요">
-                <button>📁</button>
+                <input type="text" id="file-name" placeholder="파일을 업로드 해주세요" readonly>
+                <button id="upload-button">📁</button>
+                <input type="file" id="file-input" style="display: none;" accept="image/*">
             </div>
 
             <h2>제목 / 가수 / Youtube 링크 입력</h2>
@@ -168,17 +175,62 @@
             <button class="save-btn">위치 저장하기</button>
         </div>
     </div>
-
     <script>
-        // 지도를 표시할 div와 지도 옵션 설정
+        // 이미지 업로드 기능 개선
+        const uploadButton = document.getElementById('upload-button');
+        const fileInput = document.getElementById('file-input');
+        const fileNameInput = document.getElementById('file-name');
+
+        uploadButton.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileNameInput.value = fileInput.files[0].name;
+            }
+        });
+        // 지도 생성 및 옵션 설정
         var mapContainer = document.getElementById('map'),
             mapOption = { 
-                center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표
-                level: 3 // 확대 레벨
+                center: new kakao.maps.LatLng(37.5665, 126.9780), // 초기 중심 좌표
+                level: 3 // 초기 확대 레벨
             };
-
-        // 지도 생성
         var map = new kakao.maps.Map(mapContainer, mapOption);
+    
+        // 장소 검색 서비스 객체 생성
+        var ps = new kakao.maps.services.Places();
+    
+        // 지도 클릭 이벤트
+        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+    const latlng = mouseEvent.latLng;
+
+    // 마커 업데이트
+    addMarker(latlng);
+
+    // 입력 필드에 좌표 표시
+    const locationInput = document.querySelector(
+        '.input-field input[placeholder="지도 위에 위치를 선택해주세요"]'
+    );
+    locationInput.value = `${latlng.getLat()}, ${latlng.getLng()}`;
+});
+
+    
+        // 마커 객체
+        var marker = null;
+    
+        function addMarker(position) {
+            // 기존 마커 제거
+            if (marker) {
+                marker.setMap(null);
+            }
+    
+            // 새 마커 생성
+            marker = new kakao.maps.Marker({
+                position: position,
+                map: map
+            });
+        }
     </script>
 
 </body>
