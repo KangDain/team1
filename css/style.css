@@ -89,8 +89,8 @@ div.left-word > button > a {
 }
 
 .focus-in-expand-fwd {
-	-webkit-animation: focus-in-expand-fwd 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: focus-in-expand-fwd 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    -webkit-animation: focus-in-expand-fwd 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: focus-in-expand-fwd 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 /**
@@ -98,41 +98,41 @@ div.left-word > button > a {
  * animation focus-in-expand-fwd
  * ----------------------------------------
  */
- @-webkit-keyframes focus-in-expand-fwd {
+@-webkit-keyframes focus-in-expand-fwd {
     0% {
-      letter-spacing: -0.5em;
-      -webkit-transform: translateZ(-800px);
-              transform: translateZ(-800px);
-      -webkit-filter: blur(12px);
-              filter: blur(12px);
-      opacity: 0;
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-800px);
+        transform: translateZ(-800px);
+        -webkit-filter: blur(12px);
+        filter: blur(12px);
+        opacity: 0;
     }
     100% {
-      -webkit-transform: translateZ(0);
-              transform: translateZ(0);
-      -webkit-filter: blur(0);
-              filter: blur(0);
-      opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
     }
-  }
-  @keyframes focus-in-expand-fwd {
+}
+@keyframes focus-in-expand-fwd {
     0% {
-      letter-spacing: -0.5em;
-      -webkit-transform: translateZ(-800px);
-              transform: translateZ(-800px);
-      -webkit-filter: blur(12px);
-              filter: blur(12px);
-      opacity: 0;
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-800px);
+        transform: translateZ(-800px);
+        -webkit-filter: blur(12px);
+        filter: blur(12px);
+        opacity: 0;
     }
     100% {
-      -webkit-transform: translateZ(0);
-              transform: translateZ(0);
-      -webkit-filter: blur(0);
-              filter: blur(0);
-      opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
     }
-  }
-  
+}
+
 /* == Overlay Styles == */
 .overlay {
     display: none;
@@ -164,7 +164,8 @@ div.left-word > button > a {
 }
 
 /* == Show Overlay and Modal when Active == */
-.overlay.active, .modal-box.active {
+.modal-box.active,
+.overlay.active {
     display: block;
 }
 
@@ -184,46 +185,46 @@ div.left-word > button > a {
 /* == Animation Styles == */
 .tracking-in-expand-fwd {
     -webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-            animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 }
 
 @-webkit-keyframes tracking-in-expand-fwd {
-  0% {
-    letter-spacing: -0.5em;
-    -webkit-transform: translateZ(-700px);
-            transform: translateZ(-700px);
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
+    0% {
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-700px);
+        transform: translateZ(-700px);
+        opacity: 0;
+    }
+    40% {
+        opacity: 0.6;
+    }
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
 }
 @keyframes tracking-in-expand-fwd {
-  0% {
-    letter-spacing: -0.5em;
-    -webkit-transform: translateZ(-700px);
-            transform: translateZ(-700px);
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
+    0% {
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-700px);
+        transform: translateZ(-700px);
+        opacity: 0;
+    }
+    40% {
+        opacity: 0.6;
+    }
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
 }
 
 div.modal-box > input {
     width: 300px;
     height: 50px;
-    
+
     margin-top: 20px;
 
     border-radius: 30px;
@@ -232,170 +233,270 @@ div.modal-box > input {
 
 /* === SUB1 PAGE START === */
 #sub {
-  margin-top: 50px;
+    margin-top: 50px;
 }
 
 div.right-top {
-  width: 1980px;
-  position: absolute;
+    width: 1980px;
+    position: absolute;
 }
 
 div.right-top > ul {
-  margin-left: 500px;
+    margin-left: 500px;
 }
 
 div.right-top > ul > li {
-  float: left;
+    float: left;
 }
 
 div.right-top > ul > li > input {
-  padding: 20px 400px 20px 40px;
-  border-radius: 30px;
-  background-color: rgb(43, 43, 43);
-  border: none;
-  margin-top: 35px;
-  margin-left: 50px;
+    padding: 20px 400px 20px 40px;
+    border-radius: 30px;
+    background-color: rgb(43, 43, 43);
+    border: none;
+    margin-top: 35px;
+    margin-left: 50px;
 }
 
 div.right-top > ul > li > button {
-  padding: 17px 25px;
-  border-radius: 30px;
-  margin-top: 33px;
-  margin-left: 20px;
-  cursor: pointer;
+    padding: 17px 25px;
+    border-radius: 30px;
+    margin-top: 33px;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
 div.right-top > ul#right-tage {
-  margin-top: 45px;
-  margin-left: 1600px;
+    margin-top: 45px;
+    margin-left: 1600px;
 }
 
 div.right-top > ul#right-tage > li {
-  color: white;
-  font-size: 20px;
-  margin-right: 80px;
+    color: white;
+    font-size: 20px;
+    margin-right: 80px;
 }
 
-div.left-sub{
-  position: absolute;
-  background-color: rgb(43, 43, 43);
-  width: 100px;
-  height: 800px;
-  margin-top: 130px;
-  border-radius: 0px 20px;
+div.left-sub {
+    position: absolute;
+    background-color: rgb(43, 43, 43);
+    width: 100px;
+    height: 110px;
+    margin-top: 130px;
+    border-radius: 0 20px 20px 0;
+}
+
+div.left-sub > a > div.mypage {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50px;
+    margin: 30px auto 0;
+    padding-left: 14px;
+    padding-top: 12px;
 }
 
 div.right-sub {
-  width: 1800px;
-  height:800px;
-  position: absolute;
-  background-color: rgb(43, 43, 43);
-  margin-top: 130px;
-  margin-left:130px;
-  border-radius: 15px 0 ;
+    width: 1800px;
+    height: 800px;
+    position: absolute;
+    background-color: rgb(43, 43, 43);
+    margin-top: 130px;
+    margin-left: 130px;
+    border-radius: 15px 0;
 }
 
 div.right-sub > div.input-container {
-  width: 380px;
-  height: 700px;
-  position: absolute;
-  margin-left: 1350px;
-  margin-top: -700px;
+    width: 380px;
+    height: 700px;
+    position: absolute;
+    margin-left: 1350px;
+    margin-top: -700px;
 }
 
 /* 새로운 스타일 정의 */
 
 .input-container {
-  width: 300px;
-  background-color: #444;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    width: 300px;
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .input-container h2 {
-  margin: 0;
-  font-size: 16px;
+    margin: 0;
+    font-size: 16px;
 }
 
 .input-field {
-  display: flex;
-  align-items: center;
-  background-color: #555;
-  padding: 8px;
-  border-radius: 5px;
-  margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #555;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .input-field input[type="text"] {
-  width: 100%;
-  background: none;
-  border: none;
-  outline: none;
-  color: white;
-  padding: 5px;
-  font-size: 14px;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 5px;
+    font-size: 14px;
 }
 
 .input-field button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
 }
 
 /* 스크롤 가능한 입력 리스트 스타일 */
 .input-list {
-  max-height: 200px; /* 스크롤을 위한 최대 높이 설정 */
-  overflow-y: auto;
-  margin-top: 10px;
-  background-color: #666;
-  padding: 10px;
-  border-radius: 5px;
+    max-height: 200px;
+    /* 스크롤을 위한 최대 높이 설정 */
+    overflow-y: auto;
+    margin-top: 10px;
+    background-color: #666;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .input-item {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-bottom: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .input-item input {
-  flex: 1;
-  background: #555;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  color: white;
-  font-size: 12px;
+    flex: 1;
+    background: #555;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
 }
 
 .delete-btn {
-  background: #ff4d4d;
-  border: none;
-  color: white;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .add-btn {
-  width: 100%;
-  padding: 8px;
-  background-color: #555;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
 /* === PROFILE PAGE START === */
+div.profile-area {
+    background-color: #2e2e2e;
+    /* 컨테이너 배경 */
+    padding: 20px;
+    border-radius: 0 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    /* 그림자 효과 */
+    width: 500px;
+    height: 800px;
+    text-align: center;
+    margin-top: 130px;
+    position: absolute;
+    z-index: 10;
+}
+
+.pImg {
+    width: 200px;
+    height: 200px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: white;
+    /* 헤더 강조 색 */
+    margin-top: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #cfcfcf;
+}
+
+input[type="file"],
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    /* 입력 필드 배경 */
+    color: #ffffff;
+    font-size: 14px;
+}
+
+button#save-btn {
+    background-color: black;
+    /* 버튼 색상 */
+    color: #ffffff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button#save-btn:hover {
+    background-color: white;
+    color: black;
+    /* 버튼 호버 색상 */
+}
+
+#profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #581783;
+    /* 프로필 이미지 테두리 색상 */
+    margin-bottom: 20px;
+
+}
+
+.profile-right-sub {
+    width: 1600px;
+    height: 800px;
+    background-color: #2e2e2e;
+    margin-left: 400px;
+    margin-top: 200px;
+    position: absolute;
+}
+
+#welcome-message {
+  color: white;
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}

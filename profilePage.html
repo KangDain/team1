@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+    <body>
+        <a href="./sub1page.html" class="logo" id="sub">Project Team 1</a>
+
+        <div class="right-top">
+            <ul>
+                <li><input type="search" placeholder="Search"></li>
+                <li>
+                    <button>저장된 위치 불러오기</button>
+                </li>
+            </ul>
+
+            <ul id="right-tage">
+                <li>
+                    <a href="./sub1page.html">HOME</a>
+                </li>
+                <li>
+                    <a href="./index.html">LOGOUT</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="profile-area">
+            <h2>프로필 편집</h2>
+            <!-- 프로필 사진 영역 -->
+            <div>
+                <img id="profile-img" src="./img/default-profile.png" alt="Profile Picture">
+                <br>
+                <input type="file" id="profile-pic-upload" accept="image/*">
+            </div>
+            <br>
+            <!-- 닉네임 변경 -->
+            <div>
+                <input type="text" id="nickname" placeholder="새 닉네임 입력">
+            </div>
+            <br>
+            <!-- 저장 버튼 -->
+            <button id="save-btn">저장</button>
+            <p id="welcome-message"></p>
+            <!-- 닉네임 문구가 나타날 곳 -->
+
+        </div>
+
+        <div class="profile-right-sub"></div>
+
+        <script>
+            // HTML 요소 가져오기
+            const profileImgElement = document.getElementById('profile-img');
+            const profilePicUpload = document.getElementById('profile-pic-upload');
+            const nicknameInput = document.getElementById('nickname');
+            const saveButton = document.getElementById('save-btn');
+
+            // 저장된 프로필 사진과 닉네임 로드
+            window.addEventListener('load', () => {
+                const savedProfileImg = localStorage.getItem('profileImg');
+                const savedNickname = localStorage.getItem('nickname');
+
+                if (savedProfileImg) {
+                    profileImgElement.src = savedProfileImg;
+                }
+                if (savedNickname) {
+                    nicknameInput.value = savedNickname;
+                }
+            });
+
+            // 파일 업로드 시 미리보기 업데이트
+            profilePicUpload.addEventListener('change', (event) => {
+                const file = event
+                    .target
+                    .files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        profileImgElement.src = e.target.result; // 이미지 미리보기
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // 저장 버튼 클릭 시 데이터 저장
+            saveButton.addEventListener('click', () => {
+                // 프로필 이미지 저장
+                const file = profilePicUpload.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        localStorage.setItem('profileImg', e.target.result); // 로컬스토리지에 저장
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+                // 닉네임 저장 및 문구 업데이트
+                const newNickname = nicknameInput
+                    .value
+                    .trim();
+                if (newNickname) {
+                    localStorage.setItem('nickname', newNickname); // 로컬스토리지에 저장
+                    document
+                        .getElementById('welcome-message')
+                        .textContent = `안녕하세요 ${newNickname}님!`;
+                    alert('프로필이 저장되었습니다!');
+                } else {
+                    alert('닉네임을 입력하세요!');
+                }
+            });
+
+            // 페이지 로드 시 닉네임 문구 초기화
+            window.addEventListener('load', () => {
+                const savedProfileImg = localStorage.getItem('profileImg');
+                const savedNickname = localStorage.getItem('nickname');
+
+                if (savedProfileImg) {
+                    profileImgElement.src = savedProfileImg;
+                }
+                if (savedNickname) {
+                    nicknameInput.value = savedNickname;
+                    document
+                        .getElementById('welcome-message')
+                        .textContent = `안녕하세요 ${savedNickname}님 :)`;
+                }
+            });
+        </script>
+    </body>
+</html>
