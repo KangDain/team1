@@ -279,81 +279,19 @@ div.right-top > ul#right-tage > li {
 div.left-sub{
   position: absolute;
   background-color: rgb(43, 43, 43);
-  width: 500px;
+  width: 100px;
   height: 800px;
   margin-top: 130px;
   border-radius: 0px 20px;
 }
 
-div.left-right-btn {
-  position: absolute;
-}
-
-div.left-right-btn > ul {
-  width: 500px;
-  margin-top: 585px;
-  margin-left: 40px;
-}
-
-div.left-right-btn > ul > li {
-  float: left;
-  cursor: pointer;
-}
-
-div.left-right-btn > ul > li.second-btn {
-  transform: rotate(180deg);
-  margin-top: -5px;
-  margin-left: 310px;
-}
-
-div.left-sub > img {
-  margin-left: 155px;
-  margin-top: 50px;
-}
-
-div.left-sub > p {
-  width: 500;
-  text-align: center;
-  margin-top: 20px;
-  color: white;
-  font-size: 25px;
-}
-div.left-sub > ul.left-playlist {
-  margin-left: 90px;
-  margin-top: 30px;
-  font-size: 30px;
-  color: white;
-  font-weight: bold;
-  width: 500px;
-}
-div.left-sub > ul > li {
-  float: left;
-  margin-right: 180px;
-}
-
-div.left-sub > ul.left-Mypl {
-  margin-left: 90px;
-  font-size: 30px;
-  color: white;
-  font-weight: bold;
-  width: 500px;
-}
-
-div.left-sub > ul.left-Mypl > li {
-  margin-top: 25px;
-}
-
-div.left-sub > ul.left-Mypl > li > img {
-  margin-left: 20px;
-}
-
 div.right-sub {
-  width: 1500px;
+  width: 1800px;
   height:800px;
   position: absolute;
   background-color: rgb(43, 43, 43);
   margin-top: 130px;
-  margin-left:550px;
+  margin-left:130px;
   border-radius: 15px 0 ;
 }
 
@@ -361,7 +299,7 @@ div.right-sub > div.input-container {
   width: 380px;
   height: 700px;
   position: absolute;
-  margin-left: 950px;
+  margin-left: 1350px;
   margin-top: -700px;
 }
 
