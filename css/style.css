@@ -492,11 +492,223 @@ button#save-btn:hover {
     margin-left: 400px;
     margin-top: 200px;
     position: absolute;
+    padding-left: 150px;
+    padding-top: 50px;
+
+    display: flex;
+    flex-wrap: wrap; /* 행이 넘칠 경우 다음 줄로 이동 */
+    gap: 20px; /* 카드 간격 */
+    justify-content: center; /* 가운데 정렬 */
 }
 
-#welcome-message {
+.profile-right-sub ul {
+  list-style: none; /* 리스트 스타일 제거 */
+  padding: 0;
+  margin: 0;
+}
+
+.profile-right-sub li {
+  display: inline-block; /* 카드가 줄바꿈 없이 나열 */
+}
+
+.card {
+  background-color: #1e1e1e; /* 어두운 카드 배경 */
+  color: #ffffff; /* 텍스트 흰색 */
+  border: 1px solid #444; /* 테두리 */
+  border-radius: 8px; /* 둥근 모서리 */
+  overflow: hidden; /* 내용 잘림 방지 */
+  width: 18rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* 그림자 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* 호버 시 위로 살짝 이동 */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5); /* 호버 시 그림자 */
+}
+
+.card-img-top {
+  width: 100%; /* 이미지가 카드 폭에 맞게 */
+  height: 150px; /* 이미지 고정 높이 */
+  object-fit: cover; /* 비율 유지하며 크기 조정 */
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #bbb; /* 약간 밝은 텍스트 */
+  line-height: 1.4;
+}
+
+
+div.profile-area > p {
   color: white;
   margin-top: 30px;
   font-size: 20px;
   font-weight: bold;
 }
+
+#card-count-message {
+  color: white;
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div.profile-right-sub > ul {
+  margin-top: 100px;
+  margin-left: 100px;
+  position: absolute;
+}
+
+#add-card-btn {
+  background-color: #ffffff; /* 초록색 배경 */
+  color: black; /* 흰색 텍스트 */
+  font-size: 16px; /* 버튼 텍스트 크기 */
+  font-weight: bold; /* 굵은 텍스트 */
+  padding: 10px 20px; /* 버튼 안쪽 여백 */
+  border: none; /* 테두리 제거 */
+  border-radius: 8px; /* 둥근 모서리 */
+  cursor: pointer; /* 포인터 커서 */
+  transition: all 0.3s ease; /* 부드러운 전환 효과 */
+  display: flex; /* 버튼 안의 콘텐츠를 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  margin: 20px auto; /* 버튼 간격 및 가운데 정렬 */
+  margin-left: 20px;
+  width: 200px; /* 버튼 크기 */
+  height: 50px;
+}
+
+#add-card-btn:hover {
+  transform: scale(1.05); /* 약간 확대 */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강조 */
+}
+
+#add-card-btn:active {
+  transform: scale(0.98); /* 살짝 눌린 효과 */
+}
+
+
+/* Delete 버튼 스타일 */
+.delete-card-btn {
+  background-color: black; /* 빨간색 */
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: inline-block;
+  border: none;
+}
+
+/* Delete 버튼 호버 효과 */
+.delete-card-btn:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05); /* 약간 확대 */
+}
+
+/* Card 영역 스타일 */
+.card {
+  background-color: #1f1f1f; /* 어두운 회색 배경 */
+  color: white; /* 텍스트 색상 */
+  border: 1px solid #333; /* 카드 테두리 */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* 살짝 위로 올라감 */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+}
+
+/* Card 이미지 스타일 */
+.card-img-top {
+  width: 100%;
+  height: 150px;
+  object-fit: cover; /* 이미지를 잘 맞춤 */
+}
+
+/* Card 텍스트 스타일 */
+.card-body {
+  padding: 15px;
+  font-size: 14px;
+  color: #bbb;
+  text-align: center;
+}
+
+/* Card 목록 스타일 */
+#card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  gap: 16px; /* 카드 간격 */
+  align-items: flex-start;
+  
+  width: 90%;
+  box-sizing: border-box;
+
+  list-style: none; /* 불릿 제거 */
+  padding: 0;
+  margin: 0;
+  margin-top: 100px;
+  margin-left: 150px;
+  max-height: 500px; /* 최대 높이 제한 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+}
+
+/* 스크롤바 스타일 */
+#card-list::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+#card-list::-webkit-scrollbar-thumb {
+  background-color: #555; /* 스크롤바 색상 */
+  border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+}
+
+#card-list::-webkit-scrollbar-thumb:hover {
+  background-color: #333; /* 호버 시 스크롤바 색상 */
+}
+
+#card-list::-webkit-scrollbar-track {
+  background: #1a1a1a; /* 스크롤 트랙 색상 */
+}
+
+#card-list li {
+  list-style: none;
+}
+
+@media (max-width: 1200px) {
+  .card {
+    flex: 0 0 calc(33.33% - 16px); /* 한 줄에 3개 */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 calc(50% - 16px); /* 한 줄에 2개 */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 0 0 100%; /* 한 줄에 1개 */
+  }
+}
+
+
+p.line {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  position: absolute;
+  margin-left: -60px;
+}
+

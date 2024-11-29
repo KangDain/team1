@@ -44,11 +44,15 @@
             <!-- 저장 버튼 -->
             <button id="save-btn">저장</button>
             <p id="welcome-message"></p>
-            <!-- 닉네임 문구가 나타날 곳 -->
-
+            <p id="card-count-message"></p>
         </div>
 
-        <div class="profile-right-sub"></div>
+        <div class="profile-right-sub">
+            <p class="line">My Playlist</p>
+            <button id="add-card-btn">+ Add Card</button>
+            <!-- Card 추가 버튼 -->
+            <ul id="card-list"></ul>
+        </div>
 
         <script>
             // HTML 요소 가져오기
@@ -56,9 +60,89 @@
             const profilePicUpload = document.getElementById('profile-pic-upload');
             const nicknameInput = document.getElementById('nickname');
             const saveButton = document.getElementById('save-btn');
+            const addCardBtn = document.getElementById('add-card-btn');
+            const cardList = document.getElementById('card-list');
+            const welcomeMessage = document.getElementById('welcome-message');
+            const cardCountMessage = document.createElement('p');
+            welcomeMessage.insertAdjacentElement('afterend', cardCountMessage);
 
-            // 저장된 프로필 사진과 닉네임 로드
+            // 카드 목록 스타일 설정
+            cardList.style.display = 'flex';
+            cardList.style.flexWrap = 'wrap';
+            cardList.style.justifyContent = 'flex-start';
+
+            // 카드 개수 업데이트 함수
+            const updateCardCount = () => {
+                const cardCount = cardList.children.length;
+                cardCountMessage.textContent = `현재 카드 개수: ${cardCount}개`;
+            };
+
+            // 로컬스토리지에 카드 데이터를 저장하는 함수
+            const saveCardsToLocalStorage = () => {
+                const cards = Array
+                    .from(cardList.children)
+                    .map((card) => {
+                        const text = card
+                            .querySelector('.card-text')
+                            .textContent;
+                        return {text};
+                    });
+                localStorage.setItem('cards', JSON.stringify(cards));
+            };
+
+            // DOM에 카드를 추가하는 함수
+            const addCardToDOM = (
+                text = 'This is a new playlist card.',
+                saveToStorage = true
+            ) => {
+                const newCard = document.createElement('li');
+                newCard.innerHTML = `
+        <div class="card" style="width: 18rem;">
+            <img src="./img/my_playlist.png" class="card-img-top" alt="Playlist">
+            <div class="card-body">
+                <p class="card-text">${text}</p>
+                <button class="delete-card-btn">Delete</button>
+            </div>
+        </div>
+    `;
+
+                // 카드 리스트에 추가
+                cardList.appendChild(newCard);
+
+                // 삭제 버튼 이벤트 추가
+                const deleteBtn = newCard.querySelector('.delete-card-btn');
+                deleteBtn.addEventListener('click', () => {
+                    newCard.remove(); // 카드 삭제
+                    updateCardCount(); // 카드 개수 업데이트
+                    saveCardsToLocalStorage(); // 로컬스토리지 업데이트
+                });
+
+                // 카드 개수 업데이트
+                updateCardCount();
+
+                // 로컬스토리지에 저장 (필요할 경우)
+                if (saveToStorage) {
+                    saveCardsToLocalStorage();
+                }
+            };
+
+            // 로컬스토리지에서 카드 데이터를 로드하는 함수
+            const loadCards = () => {
+                const savedCards = JSON.parse(localStorage.getItem('cards')) || []; // 저장된 카드 데이터 로드
+                savedCards.forEach((cardData) => {
+                    addCardToDOM(cardData.text, false); // 저장된 카드 로드
+                });
+                updateCardCount(); // 카드 개수 업데이트
+            };
+
+            // 초기화
             window.addEventListener('load', () => {
+                loadProfileData(); // 프로필 데이터 로드
+                loadCards(); // 카드 데이터 로드 (초기 상태는 빈 상태)
+            });
+
+            // 프로필 데이터 로드 함수
+            const loadProfileData = () => {
                 const savedProfileImg = localStorage.getItem('profileImg');
                 const savedNickname = localStorage.getItem('nickname');
 
@@ -67,8 +151,10 @@
                 }
                 if (savedNickname) {
                     nicknameInput.value = savedNickname;
+                    welcomeMessage.textContent = `안녕하세요 ${savedNickname}님 :)`;
                 }
-            });
+                updateCardCount();
+            };
 
             // 파일 업로드 시 미리보기 업데이트
             profilePicUpload.addEventListener('change', (event) => {
@@ -86,7 +172,6 @@
 
             // 저장 버튼 클릭 시 데이터 저장
             saveButton.addEventListener('click', () => {
-                // 프로필 이미지 저장
                 const file = profilePicUpload.files[0];
                 if (file) {
                     const reader = new FileReader();
@@ -96,36 +181,36 @@
                     reader.readAsDataURL(file);
                 }
 
-                // 닉네임 저장 및 문구 업데이트
                 const newNickname = nicknameInput
                     .value
                     .trim();
                 if (newNickname) {
                     localStorage.setItem('nickname', newNickname); // 로컬스토리지에 저장
-                    document
-                        .getElementById('welcome-message')
-                        .textContent = `안녕하세요 ${newNickname}님!`;
+                    welcomeMessage.textContent = `안녕하세요 ${newNickname}님!`;
                     alert('프로필이 저장되었습니다!');
                 } else {
                     alert('닉네임을 입력하세요!');
                 }
             });
 
-            // 페이지 로드 시 닉네임 문구 초기화
-            window.addEventListener('load', () => {
-                const savedProfileImg = localStorage.getItem('profileImg');
-                const savedNickname = localStorage.getItem('nickname');
+            // 카드 추가 버튼 클릭 이벤트
+            addCardBtn.addEventListener('click', () => {
+                // 카드 수 제한
+                if (cardList.children.length >= 50) {
+                    alert('더 이상 카드를 추가할 수 없습니다!');
+                    return;
+                }
 
-                if (savedProfileImg) {
-                    profileImgElement.src = savedProfileImg;
-                }
-                if (savedNickname) {
-                    nicknameInput.value = savedNickname;
-                    document
-                        .getElementById('welcome-message')
-                        .textContent = `안녕하세요 ${savedNickname}님 :)`;
-                }
+                // DOM에 카드 추가
+                addCardToDOM();
+            });
+
+            // 페이지 로드 시 데이터 초기화
+            window.addEventListener('load', () => {
+                loadProfileData(); // 프로필 데이터 로드
+                loadCards(); // 카드 데이터 로드
             });
         </script>
+
     </body>
 </html>
