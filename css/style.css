@@ -9,10 +9,14 @@ body {
     min-width: 320px;
     max-width: 1920px;
     max-height: 1080px;
+    height: 100vh;
     overflow: hidden;
     font-family: 'Noto Sans KR', sans-serif;
     background-color: black;
     user-select: none;
+    box-sizing: border-box;
+    transform: scale(1);
+    transform-origin: top left;
 }
 
 a {
@@ -149,15 +153,15 @@ div.left-word > button > a {
 .modal-box {
     display: none;
     position: fixed;
-    top: 35%;
-    left: 40%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    padding: 20px;
+    padding: 20px;  
     background-color: black;
     border: 2px solid white;
     border-radius: 10px;
-    z-index: 1100;
+    z-index: 1000;
     color: white;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
