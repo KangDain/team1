@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JavaProjectTeam1</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="./css/style.css?v=2" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <a href="./index.html" class="logo">Project Team 1</a>
 
     <div class="middle-img">
-        <img src="./img/headphone.png" alt="헤드폰 이미지">
+      <img src="./img/headphone.png" alt="헤드폰 이미지" />
     </div>
 
     <div class="left-word focus-in-expand-fwd">
-        <p>Want a</p>
-        <p class="bold">PLAYLIST?</p>
-        <button class="login">LOGIN</button>
-        <button class="signUp">SIGN UP</button>
+      <p>Want a</p>
+      <p class="bold">PLAYLIST?</p>
+      <button class="login">LOGIN</button>
+      <button class="signUp">SIGN UP</button>
     </div>
 
     <!-- Overlay와 모달 박스 추가 -->
@@ -26,91 +29,95 @@
 
     <!-- 로그인 모달 -->
     <div class="modal-box" id="login-modal">
-        <p>LOGIN</p>
-        <input type="text" placeholder="ID" id="input-id">
-        <br>    
-        <input type="password" placeholder="PW" id="input-pw">
-        <br>
-        <button class="close-modal" id="login-submit">로그인 하기</button>
+      <p>LOGIN</p>
+      <input type="text" placeholder="ID" id="input-id" />
+      <br />
+      <input type="password" placeholder="PW" id="input-pw" />
+      <br />
+      <button class="close-modal" id="login-submit">로그인 하기</button>
     </div>
 
     <!-- 회원가입 모달 -->
     <div class="modal-box" id="signup-modal">
-        <p>Sign up</p>
-        <input type="text" placeholder="Name" id="signup-name">
-        <input type="text" placeholder="ID" id="signup-id">
-        <input type="password" placeholder="PW" id="signup-pw">
-        <button class="close-modal" id="signup-submit">회원가입 하기</button>
+      <p>Sign up</p>
+      <input type="text" placeholder="Name" id="signup-name" />
+      <input type="text" placeholder="ID" id="signup-id" />
+      <input type="password" placeholder="PW" id="signup-pw" />
+      <button class="close-modal" id="signup-submit">회원가입 하기</button>
     </div>
 
     <script>
-        // 로그인 버튼 클릭 시 로그인 모달 열기
-        document.querySelector('.login').addEventListener('click', function() {
-            document.querySelector('.overlay').classList.add('active');
-            document.querySelector('#login-modal').classList.add('active');
+      // 로그인 버튼 클릭 시 로그인 모달 열기
+      document.querySelector(".login").addEventListener("click", function () {
+        document.querySelector(".overlay").classList.add("active");
+        document.querySelector("#login-modal").classList.add("active");
+      });
+
+      // 회원가입 버튼 클릭 시 회원가입 모달 열기
+      document.querySelector(".signUp").addEventListener("click", function () {
+        document.querySelector(".overlay").classList.add("active");
+        document.querySelector("#signup-modal").classList.add("active");
+      });
+
+      // Overlay 클릭 시 모든 모달 닫기
+      document.querySelector(".overlay").addEventListener("click", function () {
+        closeAllModals();
+      });
+
+      // "로그인 하기" 버튼 클릭 시 로그인 모달 닫고 페이지 이동
+      document
+        .querySelector("#login-submit")
+        .addEventListener("click", function () {
+          closeAllModals();
+          window.location.href = "./sub1page.html";
         });
 
-        // 회원가입 버튼 클릭 시 회원가입 모달 열기
-        document.querySelector('.signUp').addEventListener('click', function() {
-            document.querySelector('.overlay').classList.add('active');
-            document.querySelector('#signup-modal').classList.add('active');
+      // "회원가입 하기" 버튼 클릭 시 회원가입 모달 닫고 로그인 모달 열기
+      document
+        .querySelector("#signup-submit")
+        .addEventListener("click", function () {
+          document.querySelector("#signup-modal").classList.remove("active");
+          document.querySelector("#login-modal").classList.add("active");
         });
 
-        // Overlay 클릭 시 모든 모달 닫기
-        document.querySelector('.overlay').addEventListener('click', function() {
-            closeAllModals();
+      // 모든 모달 닫기 함수
+      function closeAllModals() {
+        document.querySelector(".overlay").classList.remove("active");
+        document.querySelectorAll(".modal-box").forEach(function (modal) {
+          modal.classList.remove("active");
         });
-
-        // "로그인 하기" 버튼 클릭 시 로그인 모달 닫고 페이지 이동
-        document.querySelector('#login-submit').addEventListener('click', function() {
-            closeAllModals();
-            window.location.href = './sub1page.html';
-        });
-
-        // "회원가입 하기" 버튼 클릭 시 회원가입 모달 닫고 로그인 모달 열기
-        document.querySelector('#signup-submit').addEventListener('click', function() {
-            document.querySelector('#signup-modal').classList.remove('active');
-            document.querySelector('#login-modal').classList.add('active');
-        });
-
-        // 모든 모달 닫기 함수
-        function closeAllModals() {
-            document.querySelector('.overlay').classList.remove('active');
-            document.querySelectorAll('.modal-box').forEach(function(modal) {
-                modal.classList.remove('active');
-            });
-        }
+      }
     </script>
 
     <style>
-        /* 간단한 스타일 */
-        .overlay.active {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-        .overlay {
-            display: none;
-        }
-        .modal-box {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            z-index: 2;
-            border-radius: 5px;
-        }
-        .modal-box.active {
-            display: block;
-        }
+      /* 간단한 스타일 */
+      .overlay.active {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+      .overlay {
+        display: none;
+      }
+      .modal-box {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        z-index: 2;
+        border-radius: 5px;
+      }
+      .modal-box.active {
+        display: block;
+      }
     </style>
-</body>
+  </body>
 </html>
