@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css?v=2" />
+    <link rel="stylesheet" href="./css/card.css" />
   </head>
   <body>
     <a href="./sub1page.html" class="logo" id="sub">Project Team 1</a>
@@ -55,7 +56,9 @@
       <p class="line">My Playlist</p>
       <button id="add-card-btn">+ Add Card</button>
       <!-- Card 추가 버튼 -->
-      <ul id="card-list"></ul>
+      <div id="card-container">
+        <ul id="card-list"></ul>
+      </div>
     </div>
 
     <div class="overlay"></div>
@@ -67,7 +70,6 @@
       const profilePicUpload = document.getElementById("profile-pic-upload");
       const nicknameInput = document.getElementById("nickname");
       const saveButton = document.getElementById("save-btn");
-      const addCardBtn = document.getElementById("add-card-btn");
       const cardList = document.getElementById("card-list");
       const welcomeMessage = document.getElementById("welcome-message");
       const cardCountMessage = document.createElement("p");
@@ -173,62 +175,7 @@
           alert("닉네임을 입력하세요!");
         }
       });
-
-      addCardBtn.addEventListener("click", () => {
-        // Add Card 클릭 시 sub1Page.html로 이동
-        window.location.href = "./sub1page.html";
-      });
-
-      window.addEventListener("load", () => {
-        loadProfileData();
-        loadCards();
-      });
-
-      document.querySelector(".save-btn").addEventListener("click", () => {
-        const playlistTitle = document.querySelector(
-          '.input-container input[placeholder="제목을 입력하세요"]'
-        ).value;
-        const imageName = document.getElementById("file-name").value;
-        const inputList = Array.from(
-          document.querySelectorAll("#inputList .input-item")
-        ).map((item) => ({
-          title: item.querySelector('input[placeholder="제목"]').value,
-          artist: item.querySelector('input[placeholder="가수"]').value,
-          link: item.querySelector(
-            'input[placeholder="Youtube 링크를 입력해주세요"]'
-          ).value,
-        }));
-        const location = document.querySelector(
-          '.input-field input[placeholder="지도 위에 위치를 선택해주세요"]'
-        ).value;
-
-        // 데이터 검증
-        if (
-          !playlistTitle ||
-          !imageName ||
-          inputList.length === 0 ||
-          !location
-        ) {
-          alert("모든 정보를 입력해주세요!");
-          return;
-        }
-
-        const playlistData = {
-          title: playlistTitle,
-          image: imageName,
-          inputs: inputList,
-          location: location,
-        };
-
-        // localStorage에 저장
-        let savedPlaylists =
-          JSON.parse(localStorage.getItem("playlists")) || [];
-        savedPlaylists.push(playlistData);
-        localStorage.setItem("playlists", JSON.stringify(savedPlaylists));
-
-        alert("플레이리스트가 저장되었습니다!");
-        window.location.href = "./profilePage.html"; // profilePage로 이동
-      });
     </script>
+    <script src="./js/playlistCard.js"></script>
   </body>
 </html>

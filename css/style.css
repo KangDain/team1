@@ -587,6 +587,7 @@ div.profile-right-sub > ul {
   margin-left: 20px;
   width: 200px; /* 버튼 크기 */
   height: 50px;
+  z-index: 1000;
 }
 
 #add-card-btn:hover {
@@ -717,7 +718,7 @@ p.line {
 
 .overlay {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -728,10 +729,9 @@ p.line {
 
 .modal-box {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 400px;
   padding: 20px;
   background-color: black;
@@ -746,7 +746,6 @@ p.line {
   display: block;
 }
 
-button.save-btn {
-  pointer-events: auto;
-  z-index: 1;
+button.playlist-save {
+  width: 340px;
 }
