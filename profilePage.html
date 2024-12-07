@@ -58,6 +58,10 @@
       <ul id="card-list"></ul>
     </div>
 
+    <div class="overlay"></div>
+    <div class="modal-box"></div>
+    <ul id="card-list"></ul>
+
     <script>
       const profileImgElement = document.getElementById("profile-img");
       const profilePicUpload = document.getElementById("profile-pic-upload");
@@ -178,6 +182,52 @@
       window.addEventListener("load", () => {
         loadProfileData();
         loadCards();
+      });
+
+      document.querySelector(".save-btn").addEventListener("click", () => {
+        const playlistTitle = document.querySelector(
+          '.input-container input[placeholder="제목을 입력하세요"]'
+        ).value;
+        const imageName = document.getElementById("file-name").value;
+        const inputList = Array.from(
+          document.querySelectorAll("#inputList .input-item")
+        ).map((item) => ({
+          title: item.querySelector('input[placeholder="제목"]').value,
+          artist: item.querySelector('input[placeholder="가수"]').value,
+          link: item.querySelector(
+            'input[placeholder="Youtube 링크를 입력해주세요"]'
+          ).value,
+        }));
+        const location = document.querySelector(
+          '.input-field input[placeholder="지도 위에 위치를 선택해주세요"]'
+        ).value;
+
+        // 데이터 검증
+        if (
+          !playlistTitle ||
+          !imageName ||
+          inputList.length === 0 ||
+          !location
+        ) {
+          alert("모든 정보를 입력해주세요!");
+          return;
+        }
+
+        const playlistData = {
+          title: playlistTitle,
+          image: imageName,
+          inputs: inputList,
+          location: location,
+        };
+
+        // localStorage에 저장
+        let savedPlaylists =
+          JSON.parse(localStorage.getItem("playlists")) || [];
+        savedPlaylists.push(playlistData);
+        localStorage.setItem("playlists", JSON.stringify(savedPlaylists));
+
+        alert("플레이리스트가 저장되었습니다!");
+        window.location.href = "./profilePage.html"; // profilePage로 이동
       });
     </script>
   </body>

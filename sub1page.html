@@ -226,6 +226,65 @@
           map: map,
         });
       }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const saveButton = document.querySelector(".save-btn");
+
+        if (!saveButton) {
+          console.error(
+            "save-btn 버튼을 찾을 수 없습니다. HTML 구조를 확인하세요."
+          );
+          return;
+        }
+
+        saveButton.addEventListener("click", () => {
+          console.log("Save 버튼이 클릭되었습니다.");
+
+          const playlistTitle = document.querySelector(
+            '.input-container input[placeholder="제목을 입력하세요"]'
+          ).value;
+          const imageName = document.getElementById("file-name").value;
+          const inputList = Array.from(
+            document.querySelectorAll("#inputList .input-item")
+          ).map((item) => ({
+            title: item.querySelector('input[placeholder="제목"]').value,
+            artist: item.querySelector('input[placeholder="가수"]').value,
+            link: item.querySelector(
+              'input[placeholder="Youtube 링크를 입력해주세요"]'
+            ).value,
+          }));
+          const location = document.querySelector(
+            '.input-field input[placeholder="지도 위에 위치를 선택해주세요"]'
+          ).value;
+
+          // 데이터 검증
+          if (
+            !playlistTitle ||
+            !imageName ||
+            inputList.length === 0 ||
+            !location
+          ) {
+            alert("모든 정보를 입력해주세요!");
+            return;
+          }
+
+          const playlistData = {
+            title: playlistTitle,
+            image: imageName,
+            inputs: inputList,
+            location: location,
+          };
+
+          // localStorage에 저장
+          let savedPlaylists =
+            JSON.parse(localStorage.getItem("playlists")) || [];
+          savedPlaylists.push(playlistData);
+          localStorage.setItem("playlists", JSON.stringify(savedPlaylists));
+
+          alert("플레이리스트가 저장되었습니다!");
+          window.location.href = "./profilePage.html"; // profilePage로 이동
+        });
+      });
     </script>
   </body>
 </html>
