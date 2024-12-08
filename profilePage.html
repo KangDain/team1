@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css?v=2" />
-    <link rel="stylesheet" href="./css/card.css" />
     <style>
       #card-list {
         display: flex;
@@ -94,29 +93,111 @@
       <p class="line">My Playlist</p>
       <button id="add-card-btn">+ Add Card</button>
       <!-- Card 추가 버튼 -->
-      <div id="card-container">
-        <ul id="card-list"></ul>
-      </div>
+      <ul id="card-list">
+        <li>
+          <div class="card" style="width: 16rem; height: 250px"></div>
+        </li>
+      </ul>
 
+      <!-- 모달 창 및 오버레이 -->
       <div class="overlay"></div>
-      <div class="modal-box"></div>
+      <div class="modal-box">
+        <button class="close-modal-btn">닫기</button>
+        <div class="modal-content"></div>
+      </div>
     </div>
 
     <script>
-      // 프로필 데이터 관리 (localStorage 기반)
       const profileImgElement = document.getElementById("profile-img");
       const profilePicUpload = document.getElementById("profile-pic-upload");
       const nicknameInput = document.getElementById("nickname");
       const saveButton = document.getElementById("save-btn");
+      const addCardBtn = document.getElementById("add-card-btn");
+      const cardList = document.getElementById("card-list");
       const welcomeMessage = document.getElementById("welcome-message");
+      const cardCountMessage = document.createElement("p");
+      welcomeMessage.insertAdjacentElement("afterend", cardCountMessage);
+
+      const loadPlaylists = async () => {
+        try {
+          const response = await fetch("php/load_playlists.php");
+          const playlists = await response.json();
+
+          playlists.forEach((playlist) => {
+            addCardToDOM(playlist); // PHP로부터 가져온 플레이리스트만 처리
+          });
+        } catch (error) {
+          console.error(
+            "플레이리스트 데이터를 가져오는 데 오류가 발생했습니다.",
+            error
+          );
+        }
+      };
+
+      cardList.style.display = "flex";
+      cardList.style.flexWrap = "wrap";
+      cardList.style.justifyContent = "flex-start";
+
+      const updateCardCount = () => {
+        const cardCount = cardList.children.length;
+        cardCountMessage.textContent = `현재 카드 개수: ${cardCount}개`;
+      };
+
+      const addCardToDOM = (playlist) => {
+        const { id, title, cover_image } = playlist;
+
+        // 이미지 데이터 확인 및 처리
+        const imageUrl = cover_image
+          ? `data:image/jpeg;base64,${cover_image}`
+          : "./img/default-profile.png";
+
+        const newCard = document.createElement("li");
+
+        newCard.innerHTML = `
+        <div class="card" style="width: 16rem;">
+            <img src="${imageUrl}" class="card-img-top" alt="Playlist Cover">
+            <div class="card-body">
+                <p class="card-text">${title}</p>
+                <button class="delete-card-btn" data-id="${id}">Delete</button>
+            </div>
+        </div>
+    `;
+
+        cardList.appendChild(newCard);
+
+        const deleteBtn = newCard.querySelector(".delete-card-btn");
+        deleteBtn.addEventListener("click", async () => {
+          const playlistId = deleteBtn.getAttribute("data-id");
+          try {
+            const response = await fetch("php/delete_playlist.php", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ playlist_id: playlistId }),
+            });
+
+            const result = await response.json();
+            if (result.status === "success") {
+              // 삭제 후 DOM에서 해당 카드 제거
+              newCard.remove();
+              updateCardCount();
+              alert("플레이리스트가 삭제되었습니다.");
+            } else {
+              alert(result.message || "삭제에 실패했습니다.");
+            }
+          } catch (error) {
+            console.error("삭제 요청 중 오류가 발생했습니다.", error);
+            alert("서버 오류로 삭제할 수 없습니다.");
+          }
+        });
+
+        updateCardCount();
+      };
 
       const loadProfileData = () => {
-        const savedProfileImg = localStorage.getItem("profileImg");
         const savedNickname = localStorage.getItem("nickname");
 
-        if (savedProfileImg) {
-          profileImgElement.src = savedProfileImg;
-        }
         if (savedNickname) {
           nicknameInput.value = savedNickname;
           welcomeMessage.textContent = `안녕하세요 ${savedNickname}님 :)`;
@@ -129,7 +210,6 @@
           const reader = new FileReader();
           reader.onload = (e) => {
             profileImgElement.src = e.target.result;
-            localStorage.setItem("profileImg", e.target.result);
           };
           reader.readAsDataURL(file);
         }
@@ -146,65 +226,8 @@
         }
       });
 
-      // 플레이리스트 로드 및 저장 (PHP 기반)
-      const cardList = document.getElementById("card-list");
-
-      const loadPlaylists = async () => {
-        try {
-          const response = await fetch("php/load_playlists.php");
-          const playlists = await response.json();
-          playlists.forEach((playlist) => {
-            addCardToDOM(playlist);
-          });
-        } catch (error) {
-          console.error(
-            "플레이리스트 데이터를 가져오는 데 오류가 발생했습니다.",
-            error
-          );
-        }
-      };
-
-      const addCardToDOM = (playlist) => {
-        const { id, title, cover_image } = playlist;
-        const imageUrl = cover_image
-          ? `data:image/jpeg;base64,${cover_image}`
-          : "./img/default-profile.png";
-
-        const newCard = document.createElement("li");
-        newCard.innerHTML = `
-          <div class="card">
-            <img src="${imageUrl}" class="card-img-top" alt="Playlist Cover">
-            <div class="card-body">
-              <p class="card-text">${title}</p>
-              <button class="delete-card-btn" data-id="${id}">Delete</button>
-            </div>
-          </div>
-        `;
-
-        cardList.appendChild(newCard);
-
-        const deleteBtn = newCard.querySelector(".delete-card-btn");
-        deleteBtn.addEventListener("click", async () => {
-          try {
-            const response = await fetch("php/delete_playlist.php", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ playlist_id: id }),
-            });
-            const result = await response.json();
-            if (result.status === "success") {
-              newCard.remove();
-              alert("플레이리스트가 삭제되었습니다.");
-            } else {
-              alert("삭제에 실패했습니다.");
-            }
-          } catch (error) {
-            console.error("삭제 요청 중 오류가 발생했습니다.", error);
-          }
-        });
-      };
-
-      document.getElementById("add-card-btn").addEventListener("click", () => {
+      addCardBtn.addEventListener("click", () => {
+        // Add Card 클릭 시 sub1Page.html로 이동
         window.location.href = "./sub1Page.html";
       });
 
@@ -213,6 +236,6 @@
         loadPlaylists();
       });
     </script>
-    <script src="./js/playlistCard.js"></script>
+    <script src="./js/modal.js"></script>
   </body>
 </html>
